@@ -3,6 +3,8 @@
 A bilingual, responsive pharmacy service portal prototype built with
 HTML, CSS, and vanilla JavaScript.
 
+![Pharmacy Service Portal Demo](preview.png)
+
 ## Live Demo
 [View Live Demo](https://waad-alwagdani.github.io/pharmacy-service-portal-demo/)
 
