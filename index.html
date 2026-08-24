@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>خدمة البريد الدوائي بـمجمع الملك فيصل الطبي</title>
+  <title>نموذج تجريبي لخدمة البريد الدوائي</title>
   <style>
     :root{
       --bg1:#eef4fb; --bg2:#f8fbfe; --surface:#ffffff; --surface-soft:#f7fbff;
@@ -14,537 +15,538 @@
       --radius-md:16px; --tap:54px; --container:980px;
     }
 
-    *{box-sizing:border-box}
-    html{-webkit-text-size-adjust:100%}
-
-    body{
-      margin:0;
-      min-height:100vh;
-      font-family:"Noto Sans Arabic","Tajawal","Segoe UI",Arial,sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at top left, #dcecfb 0%, transparent 28%),
-        radial-gradient(circle at top right, #ebf5ff 0%, transparent 22%),
-        linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 100%);
-      line-height:1.6
-    }
-
-    a{color:var(--primary-dark);text-decoration:none}
-
-    .page{
-      width:100%;
-      max-width:calc(var(--container) + 32px);
-      margin:0 auto;
-      padding:18px 16px 44px
-    }
-
-    .shell{
-      background:rgba(255,255,255,.96);
-      border:1px solid var(--border);
-      border-radius:var(--radius-xl);
-      overflow:hidden;
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(8px)
-    }
-
-    .hero{
-      position:relative;
-      overflow:hidden;
-      background:linear-gradient(135deg,#4b7db7 0%, #3e70a8 48%, #315f93 100%);
-      color:#fff;
-      padding:30px 20px 26px
-    }
-
-    .hero:before,.hero:after{
-      content:"";
-      position:absolute;
-      border-radius:999px;
-      background:rgba(255,255,255,.08);
-      pointer-events:none
-    }
-
-    .hero:before{width:230px;height:230px;top:-95px;left:-75px}
-    .hero:after{width:180px;height:180px;bottom:-72px;right:-45px}
-
-    .hero-inner{position:relative;z-index:1;display:grid;gap:16px}
-
-    .hero-badge{
-      width:fit-content;
-      margin-inline:auto;
-      padding:8px 14px;
-      border-radius:999px;
-      background:rgba(255,255,255,.11);
-      border:1px solid rgba(255,255,255,.16);
-      font-size:.85rem;
-      font-weight:800;
-      letter-spacing:.2px
-    }
-
-    .hero h1,.hero h2,.hero p{margin:0}
-    .hero h1{text-align:center;font-size:1.55rem;line-height:1.55;font-weight:800}
-    .hero h2{text-align:center;font-size:1.02rem;font-weight:600}
-
-    .hero-desc{
-      display:grid;
-      gap:10px;
-      padding:16px 18px;
-      border-radius:18px;
-      background:rgba(255,255,255,.11);
-      border:1px solid rgba(255,255,255,.15);
-      text-align:center
-    }
-
-    .hero-desc p{font-size:.97rem}
-
-    .content{padding:18px}
-
-    .hours{
-      display:grid;
-      gap:8px;
-      padding:16px;
-      border-radius:18px;
-      background:linear-gradient(180deg,#fbfdff 0%,#f6fafe 100%);
-      border:1px solid var(--border);
-      text-align:center;
-      margin-bottom:18px
-    }
-
-    .hours h3,.hours p{margin:0}
-    .hours h3{font-size:1rem;font-weight:800}
-
-    .unavailable-box{display:none}
-    .unavailable-box.active{display:block;margin-bottom:18px}
-
-    .unavailable-card{
-      border-radius:20px;
-      border:1px solid #efcfcf;
-      background:linear-gradient(180deg,#fffafa 0%, #fff3f3 100%);
-      padding:26px 18px;
-      text-align:center
-    }
-
-    .unavailable-icon{
-      width:64px;
-      height:64px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      margin:0 auto 14px;
-      background:#fff;
-      border:1px solid #efcfcf;
-      color:var(--error);
-      font-size:1.7rem;
-      font-weight:900
-    }
-
-    .unavailable-card h3,.unavailable-card p{margin:0}
-    .unavailable-card h3{font-size:1.08rem;font-weight:800;margin-bottom:10px}
-
-    .stepper{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:10px;
-      margin-bottom:20px
-    }
-
-    .step{
-      background:#f8fbff;
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:12px 10px;
-      min-height:78px;
-      display:flex;
-      align-items:center;
-      gap:10px
-    }
-
-    .step-circle{
-      width:34px;
-      height:34px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      border:1px solid var(--border);
-      background:#fff;
-      color:var(--muted);
-      font-weight:800;
-      flex-shrink:0
-    }
-
-    .step-label{display:grid;gap:3px;min-width:0}
-    .step-label .ar{font-size:.88rem;font-weight:800;line-height:1.25}
-    .step-label .en{font-size:.77rem;color:var(--muted);line-height:1.25}
-
-    .step.active{background:var(--primary-soft);border-color:#bfd3ea}
-    .step.active .step-circle{background:var(--primary);border-color:var(--primary);color:#fff}
-    .step.completed{background:#f2fbf7;border-color:#cfe8da}
-    .step.completed .step-circle{background:var(--success);border-color:var(--success);color:#fff}
-
-    .panel{display:none}
-    .panel.active{display:block}
-
-    .section-head{display:grid;gap:6px;margin-bottom:18px}
-    .section-head h3,.section-head p{margin:0}
-    .section-head h3{font-size:1.12rem;font-weight:800}
-    .section-head p{font-size:.95rem;color:var(--muted)}
-
-    .service-grid{display:grid;gap:12px;margin-top:14px}
-
-    .service-card{
-      width:100%;
-      min-height:84px;
-      padding:16px;
-      border-radius:18px;
-      border:1.5px solid var(--border);
-      background:var(--surface);
-      display:flex;
-      align-items:center;
-      gap:14px;
-      text-align:start;
-      cursor:pointer;
-      transition:.18s ease
-    }
-
-    .service-card:hover,.service-card:focus-visible{
-      outline:none;
-      border-color:#b9d0e8;
-      box-shadow:0 0 0 4px rgba(69,120,177,.08);
-      transform:translateY(-1px)
-    }
-
-    .service-card.selected{
-      border-color:var(--primary);
-      background:linear-gradient(180deg,#f7fbff 0%,#eef5fd 100%)
-    }
-
-    .service-icon{
-      width:48px;
-      height:48px;
-      border-radius:14px;
-      display:grid;
-      place-items:center;
-      flex-shrink:0;
-      background:#eff5fb;
-      color:var(--primary-dark)
-    }
-
-    .service-card.selected .service-icon{background:var(--primary);color:#fff}
-
-    .service-copy{display:grid;gap:4px}
-    .service-copy strong{font-size:.99rem;font-weight:800}
-    .service-copy span{font-size:.9rem;color:var(--muted)}
-
-    .grid{display:grid;gap:14px}
-    .field{display:block}
-
-    .label{display:grid;gap:4px;margin-bottom:8px}
-    .label .topline{display:flex;align-items:flex-start;gap:6px;justify-content:flex-start}
-    .label .ar{font-weight:800;font-size:.97rem;line-height:1.35}
-    .label .en{font-size:.84rem;color:var(--muted);font-weight:600;line-height:1.4}
-
-    .req{
-      color:var(--error);
-      font-weight:900;
-      font-size:1rem;
-      line-height:1;
-      flex:0 0 auto;
-      margin-top:2px
-    }
-
-    input[type="text"], input[type="tel"], textarea{
-      width:100%;
-      min-height:var(--tap);
-      padding:14px 15px;
-      border-radius:16px;
-      border:1px solid var(--border);
-      background:var(--surface);
-      color:var(--text);
-      font:inherit;
-      outline:none;
-      transition:.18s ease
-    }
-
-    input:focus, textarea:focus{
-      border-color:#a4c4e4;
-      box-shadow:0 0 0 4px rgba(69,120,177,.08)
-    }
-
-    textarea{min-height:146px;resize:vertical}
-
-    .input-error{border-color:var(--error)!important;background:var(--error-soft)!important}
-    .error-text{min-height:1.2em;margin-top:7px;color:var(--error);font-size:.88rem}
-
-    .address-card{
-      margin-top:10px;
-      border:1px solid var(--border);
-      border-radius:18px;
-      background:linear-gradient(180deg,#fbfdff 0%, #f6fafe 100%);
-      padding:14px;
-      display:grid;
-      gap:12px
-    }
-
-    .address-head{
-      display:flex;
-      align-items:flex-start;
-      gap:12px
-    }
-
-    .address-icon{
-      width:42px;
-      height:42px;
-      border-radius:12px;
-      background:var(--primary-soft);
-      display:grid;
-      place-items:center;
-      color:var(--primary-dark);
-      flex-shrink:0
-    }
-
-    .address-copy{display:grid;gap:6px;min-width:0}
-    .address-copy p{margin:0}
-    .address-copy .ar{font-size:.93rem;color:var(--text);line-height:1.6}
-    .address-copy .en{font-size:.88rem;color:var(--muted);line-height:1.5}
-
-    .method-grid{
-      display:grid;
-      gap:12px;
-    }
-
-    .method-card{
-      border:1px solid var(--border);
-      border-radius:16px;
-      background:#fff;
-      padding:14px;
-      display:grid;
-      gap:12px;
-    }
-
-    .method-title{
-      display:grid;
-      gap:2px;
-      text-align:center;
-    }
-
-    .method-title .ar{
-      font-size:.95rem;
-      font-weight:800;
-      color:var(--text);
-    }
-
-    .method-title .en{
-      font-size:.82rem;
-      color:var(--muted);
-      font-weight:600;
-    }
-
-    .steps-flow{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-    }
-
-    .step-chip{
-      min-height:36px;
-      padding:7px 12px;
-      border-radius:999px;
-      background:var(--primary-soft);
-      color:var(--primary-dark);
-      border:1px solid #d8e5f3;
-      font-size:.88rem;
-      font-weight:800;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-    }
-
-    .step-chip.strong{
-      background:#eaf7f1;
-      color:#1f7a52;
-      border-color:#cfe8da;
-    }
-
-    .step-arrow{
-      color:var(--muted);
-      font-weight:900;
-      font-size:1rem;
-      line-height:1;
-    }
-
-    .ar-flow{direction:rtl}
-    .en-flow{direction:ltr}
-
-    .method-actions{
-      display:grid;
-      gap:10px;
-    }
-
-    .link-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      min-height:48px;
-      padding:0 16px;
-      border-radius:14px;
-      background:#fff;
-      border:1px solid var(--border);
-      color:var(--primary-dark);
-      font-weight:800;
-      text-align:center
-    }
-
-    .link-btn:hover{background:#f9fbff}
-
-    .whatsapp-btn{
-      background:#eefaf3;
-      border-color:#cfe8d9;
-      color:#1f7a52
-    }
-
-    .whatsapp-btn:hover{background:#e6f6ed}
-
-    .clinic-box{
-      border-radius:18px;
-      border:1px solid var(--border);
-      background:#f9fbfe;
-      padding:12px
-    }
-
-    .clinic-grid{display:grid;gap:10px}
-
-    .check{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-height:50px;
-      padding:9px 10px;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background:#fff
-    }
-
-    .check input{width:20px;height:20px;accent-color:var(--primary);flex-shrink:0}
-    .check span{display:grid;gap:2px;line-height:1.3}
-    .check .ar{font-weight:800}
-    .check .en{color:var(--muted);font-size:.84rem}
-
-    .review{
-      border-radius:20px;
-      border:1px solid var(--border);
-      background:linear-gradient(180deg,#fbfdff 0%,#f7fbfe 100%);
-      overflow:hidden
-    }
-
-    .review-item{
-      padding:14px 15px;
-      border-bottom:1px solid var(--border);
-      display:grid;
-      gap:6px
-    }
-
-    .review-item:last-child{border-bottom:0}
-    .review-label{display:grid;gap:2px}
-    .review-label .ar{font-weight:800;font-size:.93rem}
-    .review-label .en{font-size:.82rem;color:var(--muted)}
-    .review-value{word-break:break-word;font-size:.97rem}
-
-    .submit-error{
-      display:none;
-      margin-top:14px;
-      padding:13px 14px;
-      border-radius:16px;
-      border:1px solid #efcfcf;
-      background:#fff7f7;
-      color:var(--error);
-      font-size:.92rem
-    }
-
-    .submit-error.active{display:block}
-
-    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
-
-    .btn{
-      min-height:54px;
-      padding:0 18px;
-      border-radius:16px;
-      border:1px solid transparent;
-      font:inherit;
-      font-weight:800;
-      cursor:pointer;
-      flex:1 1 180px;
-      transition:.18s ease
-    }
-
-    .btn-primary{background:linear-gradient(180deg,#4679b2 0%, #3a6ca3 100%);color:#fff}
-    .btn-primary:hover,.btn-primary:focus-visible{outline:none;filter:brightness(.97);transform:translateY(-1px)}
-    .btn-secondary{background:#fff;color:var(--text);border-color:var(--border)}
-    .btn-secondary:hover,.btn-secondary:focus-visible{outline:none;background:#f8fbff}
-    .btn:disabled{opacity:.72;cursor:not-allowed;transform:none!important}
-
-    .success{display:none;text-align:center;padding:8px 0 2px}
-    .success.active{display:block}
-
-    .success-card{
-      border-radius:24px;
-      border:1px solid #d0e8da;
-      background:linear-gradient(180deg,#f6fcf8 0%,#eef9f3 100%);
-      padding:30px 18px
-    }
-
-    .success-icon{
-      width:74px;
-      height:74px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      margin:0 auto 16px;
-      background:#fff;
-      color:var(--success);
-      border:1px solid #d0e8da;
-      font-size:2rem;
-      font-weight:900
-    }
-
-    .success-card h3,.success-card p{margin:0}
-    .success-card h3{font-size:1.2rem;margin-bottom:12px;font-weight:800}
-    .success-card p + p{margin-top:7px}
-
-    .hidden{display:none!important}
-
-    .footer-credit{
-      margin-top:18px;
-      padding-top:8px;
-      text-align:right;
-      font-size:.56rem;
-      line-height:1.5;
-      color:#edf2f7;
-      user-select:none;
-    }
-
-    @media (min-width:640px){
-      .page{padding-top:28px}
-      .hero{padding:34px 30px 28px}
-      .content{padding:24px}
-      .service-grid{grid-template-columns:1fr 1fr}
-      .grid.two{grid-template-columns:1fr 1fr}
-      .clinic-grid{grid-template-columns:1fr 1fr}
-      .review-item{grid-template-columns:minmax(220px,290px) 1fr;align-items:start}
-      .review-label{gap:3px}
-      .method-actions{grid-template-columns:1fr 1fr}
-    }
-
-    @media (max-width:640px){
-      .footer-credit{font-size:.5rem}
-    }
-
-    @media (min-width:900px){
-      .hero h1{font-size:1.74rem}
-      .hero h2{font-size:1.1rem}
-      .content{padding:28px}
-    }
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:"Noto Sans Arabic","Tajawal","Segoe UI",Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at top left, #dcecfb 0%, transparent 28%),
+    radial-gradient(circle at top right, #ebf5ff 0%, transparent 22%),
+    linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 100%);
+  line-height:1.6
+}
+
+a{color:var(--primary-dark);text-decoration:none}
+
+.page{
+  width:100%;
+  max-width:calc(var(--container) + 32px);
+  margin:0 auto;
+  padding:18px 16px 44px
+}
+
+.shell{
+  background:rgba(255,255,255,.96);
+  border:1px solid var(--border);
+  border-radius:var(--radius-xl);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(8px)
+}
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,#4b7db7 0%, #3e70a8 48%, #315f93 100%);
+  color:#fff;
+  padding:30px 20px 26px
+}
+
+.hero:before,.hero:after{
+  content:"";
+  position:absolute;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  pointer-events:none
+}
+
+.hero:before{width:230px;height:230px;top:-95px;left:-75px}
+.hero:after{width:180px;height:180px;bottom:-72px;right:-45px}
+
+.hero-inner{position:relative;z-index:1;display:grid;gap:16px}
+
+.hero-badge{
+  width:fit-content;
+  margin-inline:auto;
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.11);
+  border:1px solid rgba(255,255,255,.16);
+  font-size:.85rem;
+  font-weight:800;
+  letter-spacing:.2px
+}
+
+.hero h1,.hero h2,.hero p{margin:0}
+.hero h1{text-align:center;font-size:1.55rem;line-height:1.55;font-weight:800}
+.hero h2{text-align:center;font-size:1.02rem;font-weight:600}
+
+.hero-desc{
+  display:grid;
+  gap:10px;
+  padding:16px 18px;
+  border-radius:18px;
+  background:rgba(255,255,255,.11);
+  border:1px solid rgba(255,255,255,.15);
+  text-align:center
+}
+
+.hero-desc p{font-size:.97rem}
+
+.content{padding:18px}
+
+.hours{
+  display:grid;
+  gap:8px;
+  padding:16px;
+  border-radius:18px;
+  background:linear-gradient(180deg,#fbfdff 0%,#f6fafe 100%);
+  border:1px solid var(--border);
+  text-align:center;
+  margin-bottom:18px
+}
+
+.hours h3,.hours p{margin:0}
+.hours h3{font-size:1rem;font-weight:800}
+
+.unavailable-box{display:none}
+.unavailable-box.active{display:block;margin-bottom:18px}
+
+.unavailable-card{
+  border-radius:20px;
+  border:1px solid #efcfcf;
+  background:linear-gradient(180deg,#fffafa 0%, #fff3f3 100%);
+  padding:26px 18px;
+  text-align:center
+}
+
+.unavailable-icon{
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  margin:0 auto 14px;
+  background:#fff;
+  border:1px solid #efcfcf;
+  color:var(--error);
+  font-size:1.7rem;
+  font-weight:900
+}
+
+.unavailable-card h3,.unavailable-card p{margin:0}
+.unavailable-card h3{font-size:1.08rem;font-weight:800;margin-bottom:10px}
+
+.stepper{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-bottom:20px
+}
+
+.step{
+  background:#f8fbff;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:12px 10px;
+  min-height:78px;
+  display:flex;
+  align-items:center;
+  gap:10px
+}
+
+.step-circle{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--muted);
+  font-weight:800;
+  flex-shrink:0
+}
+
+.step-label{display:grid;gap:3px;min-width:0}
+.step-label .ar{font-size:.88rem;font-weight:800;line-height:1.25}
+.step-label .en{font-size:.77rem;color:var(--muted);line-height:1.25}
+
+.step.active{background:var(--primary-soft);border-color:#bfd3ea}
+.step.active .step-circle{background:var(--primary);border-color:var(--primary);color:#fff}
+.step.completed{background:#f2fbf7;border-color:#cfe8da}
+.step.completed .step-circle{background:var(--success);border-color:var(--success);color:#fff}
+
+.panel{display:none}
+.panel.active{display:block}
+
+.section-head{display:grid;gap:6px;margin-bottom:18px}
+.section-head h3,.section-head p{margin:0}
+.section-head h3{font-size:1.12rem;font-weight:800}
+.section-head p{font-size:.95rem;color:var(--muted)}
+
+.service-grid{display:grid;gap:12px;margin-top:14px}
+
+.service-card{
+  width:100%;
+  min-height:84px;
+  padding:16px;
+  border-radius:18px;
+  border:1.5px solid var(--border);
+  background:var(--surface);
+  display:flex;
+  align-items:center;
+  gap:14px;
+  text-align:start;
+  cursor:pointer;
+  transition:.18s ease
+}
+
+.service-card:hover,.service-card:focus-visible{
+  outline:none;
+  border-color:#b9d0e8;
+  box-shadow:0 0 0 4px rgba(69,120,177,.08);
+  transform:translateY(-1px)
+}
+
+.service-card.selected{
+  border-color:var(--primary);
+  background:linear-gradient(180deg,#f7fbff 0%,#eef5fd 100%)
+}
+
+.service-icon{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  background:#eff5fb;
+  color:var(--primary-dark)
+}
+
+.service-card.selected .service-icon{background:var(--primary);color:#fff}
+
+.service-copy{display:grid;gap:4px}
+.service-copy strong{font-size:.99rem;font-weight:800}
+.service-copy span{font-size:.9rem;color:var(--muted)}
+
+.grid{display:grid;gap:14px}
+.field{display:block}
+
+.label{display:grid;gap:4px;margin-bottom:8px}
+.label .topline{display:flex;align-items:flex-start;gap:6px;justify-content:flex-start}
+.label .ar{font-weight:800;font-size:.97rem;line-height:1.35}
+.label .en{font-size:.84rem;color:var(--muted);font-weight:600;line-height:1.4}
+
+.req{
+  color:var(--error);
+  font-weight:900;
+  font-size:1rem;
+  line-height:1;
+  flex:0 0 auto;
+  margin-top:2px
+}
+
+input[type="text"], input[type="tel"], textarea{
+  width:100%;
+  min-height:var(--tap);
+  padding:14px 15px;
+  border-radius:16px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--text);
+  font:inherit;
+  outline:none;
+  transition:.18s ease
+}
+
+input:focus, textarea:focus{
+  border-color:#a4c4e4;
+  box-shadow:0 0 0 4px rgba(69,120,177,.08)
+}
+
+textarea{min-height:146px;resize:vertical}
+
+.input-error{border-color:var(--error)!important;background:var(--error-soft)!important}
+.error-text{min-height:1.2em;margin-top:7px;color:var(--error);font-size:.88rem}
+
+.address-card{
+  margin-top:10px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:linear-gradient(180deg,#fbfdff 0%, #f6fafe 100%);
+  padding:14px;
+  display:grid;
+  gap:12px
+}
+
+.address-head{
+  display:flex;
+  align-items:flex-start;
+  gap:12px
+}
+
+.address-icon{
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  background:var(--primary-soft);
+  display:grid;
+  place-items:center;
+  color:var(--primary-dark);
+  flex-shrink:0
+}
+
+.address-copy{display:grid;gap:6px;min-width:0}
+.address-copy p{margin:0}
+.address-copy .ar{font-size:.93rem;color:var(--text);line-height:1.6}
+.address-copy .en{font-size:.88rem;color:var(--muted);line-height:1.5}
+
+.method-grid{
+  display:grid;
+  gap:12px;
+}
+
+.method-card{
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:#fff;
+  padding:14px;
+  display:grid;
+  gap:12px;
+}
+
+.method-title{
+  display:grid;
+  gap:2px;
+  text-align:center;
+}
+
+.method-title .ar{
+  font-size:.95rem;
+  font-weight:800;
+  color:var(--text);
+}
+
+.method-title .en{
+  font-size:.82rem;
+  color:var(--muted);
+  font-weight:600;
+}
+
+.steps-flow{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+
+.step-chip{
+  min-height:36px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:var(--primary-soft);
+  color:var(--primary-dark);
+  border:1px solid #d8e5f3;
+  font-size:.88rem;
+  font-weight:800;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.step-chip.strong{
+  background:#eaf7f1;
+  color:#1f7a52;
+  border-color:#cfe8da;
+}
+
+.step-arrow{
+  color:var(--muted);
+  font-weight:900;
+  font-size:1rem;
+  line-height:1;
+}
+
+.ar-flow{direction:rtl}
+.en-flow{direction:ltr}
+
+.method-actions{
+  display:grid;
+  gap:10px;
+}
+
+.link-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:48px;
+  padding:0 16px;
+  border-radius:14px;
+  background:#fff;
+  border:1px solid var(--border);
+  color:var(--primary-dark);
+  font-weight:800;
+  text-align:center
+}
+
+.link-btn:hover{background:#f9fbff}
+
+.whatsapp-btn{
+  background:#eefaf3;
+  border-color:#cfe8d9;
+  color:#1f7a52
+}
+
+.whatsapp-btn:hover{background:#e6f6ed}
+
+.clinic-box{
+  border-radius:18px;
+  border:1px solid var(--border);
+  background:#f9fbfe;
+  padding:12px
+}
+
+.clinic-grid{display:grid;gap:10px}
+
+.check{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-height:50px;
+  padding:9px 10px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:#fff
+}
+
+.check input{width:20px;height:20px;accent-color:var(--primary);flex-shrink:0}
+.check span{display:grid;gap:2px;line-height:1.3}
+.check .ar{font-weight:800}
+.check .en{color:var(--muted);font-size:.84rem}
+
+.review{
+  border-radius:20px;
+  border:1px solid var(--border);
+  background:linear-gradient(180deg,#fbfdff 0%,#f7fbfe 100%);
+  overflow:hidden
+}
+
+.review-item{
+  padding:14px 15px;
+  border-bottom:1px solid var(--border);
+  display:grid;
+  gap:6px
+}
+
+.review-item:last-child{border-bottom:0}
+.review-label{display:grid;gap:2px}
+.review-label .ar{font-weight:800;font-size:.93rem}
+.review-label .en{font-size:.82rem;color:var(--muted)}
+.review-value{word-break:break-word;font-size:.97rem}
+
+.submit-error{
+  display:none;
+  margin-top:14px;
+  padding:13px 14px;
+  border-radius:16px;
+  border:1px solid #efcfcf;
+  background:#fff7f7;
+  color:var(--error);
+  font-size:.92rem
+}
+
+.submit-error.active{display:block}
+
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+
+.btn{
+  min-height:54px;
+  padding:0 18px;
+  border-radius:16px;
+  border:1px solid transparent;
+  font:inherit;
+  font-weight:800;
+  cursor:pointer;
+  flex:1 1 180px;
+  transition:.18s ease
+}
+
+.btn-primary{background:linear-gradient(180deg,#4679b2 0%, #3a6ca3 100%);color:#fff}
+.btn-primary:hover,.btn-primary:focus-visible{outline:none;filter:brightness(.97);transform:translateY(-1px)}
+.btn-secondary{background:#fff;color:var(--text);border-color:var(--border)}
+.btn-secondary:hover,.btn-secondary:focus-visible{outline:none;background:#f8fbff}
+.btn:disabled{opacity:.72;cursor:not-allowed;transform:none!important}
+
+.success{display:none;text-align:center;padding:8px 0 2px}
+.success.active{display:block}
+
+.success-card{
+  border-radius:24px;
+  border:1px solid #d0e8da;
+  background:linear-gradient(180deg,#f6fcf8 0%,#eef9f3 100%);
+  padding:30px 18px
+}
+
+.success-icon{
+  width:74px;
+  height:74px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  margin:0 auto 16px;
+  background:#fff;
+  color:var(--success);
+  border:1px solid #d0e8da;
+  font-size:2rem;
+  font-weight:900
+}
+
+.success-card h3,.success-card p{margin:0}
+.success-card h3{font-size:1.2rem;margin-bottom:12px;font-weight:800}
+.success-card p + p{margin-top:7px}
+
+.hidden{display:none!important}
+
+.footer-credit{
+  margin-top:18px;
+  padding-top:8px;
+  text-align:right;
+  font-size:.56rem;
+  line-height:1.5;
+  color:#edf2f7;
+  user-select:none;
+}
+
+@media (min-width:640px){
+  .page{padding-top:28px}
+  .hero{padding:34px 30px 28px}
+  .content{padding:24px}
+  .service-grid{grid-template-columns:1fr 1fr}
+  .grid.two{grid-template-columns:1fr 1fr}
+  .clinic-grid{grid-template-columns:1fr 1fr}
+  .review-item{grid-template-columns:minmax(220px,290px) 1fr;align-items:start}
+  .review-label{gap:3px}
+  .method-actions{grid-template-columns:1fr 1fr}
+}
+
+@media (max-width:640px){
+  .footer-credit{font-size:.5rem}
+}
+
+@media (min-width:900px){
+  .hero h1{font-size:1.74rem}
+  .hero h2{font-size:1.1rem}
+  .content{padding:28px}
+}
+
   </style>
 </head>
 <body>
@@ -552,330 +554,335 @@
     <section class="shell">
       <header class="hero">
         <div class="hero-inner">
-          <div class="hero-badge">KFMC Pharmacy Mail Service</div>
+          <div class="hero-badge">Pharmacy Mail Service Demo</div>
           <div>
-            <h1>خدمة البريد الدوائي بـمجمع الملك فيصل الطبي</h1>
-            <h2>Pharmacy Mail Service – King Faisal Medical Complex</h2>
+            <h1>نموذج تجريبي لخدمة البريد الدوائي</h1>
+            <h2>Pharmacy Mail Service – Demo Prototype</h2>
           </div>
           <div class="hero-desc">
-            <p>خدمة إلكترونية لطلبات إعادة صرف الأدوية البريدية أو إرسال الاقتراحات والملاحظات بسهولة من خلال نموذج واضح ومباشر.</p>
-            <p>An electronic service to request medication refill by mail or submit suggestions and feedback through a clear and easy-to-use form.</p>
-          </div>
+  <p>خدمة إلكترونية لطلبات إعادة صرف الأدوية البريدية أو إرسال الاقتراحات والملاحظات بسهولة من خلال نموذج واضح ومباشر.</p>
+  <p>An electronic service to request medication refill by mail or submit suggestions and feedback through a clear and easy-to-use form.</p>
+
+  <p>نموذج تجريبي لأغراض العرض فقط — غير تابع لأي منشأة صحية</p>
+  <p>Demo prototype for demonstration purposes only — not affiliated with any healthcare provider.</p>
+</div>
         </div>
       </header>
 
-      <div class="content">
-        <section class="hours">
-          <h3 id="hoursHeading">أوقات العمل / Working Hours</h3>
-          <p id="hoursAr">الأحد – الخميس | 8:00 ص – 12:00 ظ</p>
-          <p id="hoursEn">Sunday – Thursday | 8:00 AM – 12:00 PM</p>
-        </section>
+  <div class="content">
+    <section class="hours">
+     <h3 id="hoursHeading">نسخة تجريبية / Demo Version</h3>
+<p id="hoursAr">النموذج متاح للتجربة في أي وقت</p>
+<p id="hoursEn">This demo is available at all times</p>
+    </section>
 
-        <section id="unavailableBox" class="unavailable-box" aria-live="polite">
-          <div class="unavailable-card">
-            <div class="unavailable-icon">!</div>
-            <h3 id="closedTitle">عذرًا، لا يمكن إتمام الخدمة حاليًا / Service is currently unavailable</h3>
-            <p id="closedAr">هذه الخدمة متاحة من الأحد إلى الخميس، من الساعة 8:00 صباحًا حتى 12:00 ظهرًا فقط.</p>
-            <p id="closedEn">This service is available Sunday through Thursday, from 8:00 AM to 12:00 PM only.</p>
-          </div>
-        </section>
-
-        <section id="formShell">
-          <div class="stepper" aria-label="Progress steps">
-            <div class="step active" data-step="1"><div class="step-circle">1</div><div class="step-label"><span class="ar">الخدمة</span><span class="en">Service</span></div></div>
-            <div class="step" data-step="2"><div class="step-circle">2</div><div class="step-label"><span class="ar">البيانات</span><span class="en">Details</span></div></div>
-            <div class="step" data-step="3"><div class="step-circle">3</div><div class="step-label"><span class="ar">المراجعة والإرسال</span><span class="en">Review &amp; Submit</span></div></div>
-          </div>
-
-          <form id="patientForm" novalidate>
-            <input type="hidden" id="serviceType" value="" />
-
-            <section class="panel active" data-panel="1">
-              <div class="section-head">
-                <h3>اختيار الخدمة / Select Service</h3>
-                <p>يرجى اختيار نوع الخدمة، ثم تعبئة البيانات المطلوبة، ومراجعتها قبل الإرسال النهائي.</p>
-                <p>Please select the service type, complete the required information, and review it before final submission.</p>
-              </div>
-
-              <div class="service-grid" role="radiogroup" aria-label="Service selection">
-                <button type="button" class="service-card" data-service="Medication Refill" data-service-ar="إعادة صرف دواء" aria-pressed="false">
-                  <span class="service-icon" aria-hidden="true">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <rect x="4" y="3.5" width="16" height="17" rx="3"></rect>
-                      <path d="M12 7v10M7 12h10"></path>
-                    </svg>
-                  </span>
-                  <span class="service-copy">
-                    <strong>إعادة صرف دواء</strong>
-                    <span>Medication Refill</span>
-                  </span>
-                </button>
-
-                <button type="button" class="service-card" data-service="Suggestions & Complaints" data-service-ar="اقتراحات وشكاوى" aria-pressed="false">
-                  <span class="service-icon" aria-hidden="true">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M7 10h10M7 14h7"></path>
-                      <path d="M5 4h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H11l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"></path>
-                    </svg>
-                  </span>
-                  <span class="service-copy">
-                    <strong>اقتراحات وشكاوى</strong>
-                    <span>Suggestions &amp; Complaints</span>
-                  </span>
-                </button>
-              </div>
-
-              <div class="error-text" id="serviceError"></div>
-            </section>
-
-            <section class="panel" data-panel="2">
-              <div id="refillSection" class="hidden">
-                <div class="section-head">
-                  <h3>قسم إعادة صرف الدواء / Medication Refill Section</h3>
-                  <p>الرجاء تعبئة البيانات كما هي في الملف الطبي لضمان سرعة المعالجة.</p>
-                  <p>Please enter the details exactly as they appear in the medical record to support faster processing.</p>
-                </div>
-
-                <div class="grid two">
-                  <div class="field">
-                    <label class="label" for="patientName">
-                      <span class="topline"><span class="ar">اسم المريض</span><span class="req">*</span></span>
-                      <span class="en">Patient Name</span>
-                    </label>
-                    <input id="patientName" type="text" autocomplete="name" />
-                    <div class="error-text" id="patientNameError"></div>
-                  </div>
-
-                  <div class="field">
-                    <label class="label" for="mrn">
-                      <span class="topline"><span class="ar">رقم الملف الطبي</span><span class="req">*</span></span>
-                      <span class="en">Medical Record Number</span>
-                    </label>
-                    <input id="mrn" type="tel" inputmode="numeric" autocomplete="off" />
-                    <div class="error-text" id="mrnError"></div>
-                  </div>
-
-                  <div class="field">
-                    <label class="label" for="idIqama">
-                      <span class="topline"><span class="ar">رقم الهوية / الإقامة</span><span class="req">*</span></span>
-                      <span class="en">ID or Iqama Number</span>
-                    </label>
-                    <input id="idIqama" type="tel" inputmode="numeric" autocomplete="off" />
-                    <div class="error-text" id="idIqamaError"></div>
-                  </div>
-
-                  <div class="field">
-                    <label class="label" for="mobile">
-                      <span class="topline"><span class="ar">رقم الجوال</span><span class="req">*</span></span>
-                      <span class="en">Mobile Number</span>
-                    </label>
-                    <input id="mobile" type="tel" inputmode="numeric" autocomplete="tel" />
-                    <div class="error-text" id="mobileError"></div>
-                  </div>
-
-                  <div class="field">
-                    <label class="label" for="altMobile">
-                      <span class="topline"><span class="ar">رقم جوال بديل</span><span class="req">*</span></span>
-                      <span class="en">Alternative Mobile Number</span>
-                    </label>
-                    <input id="altMobile" type="tel" inputmode="numeric" autocomplete="tel" />
-                    <div class="error-text" id="altMobileError"></div>
-                  </div>
-
-                  <div class="field">
-                    <label class="label" for="city">
-                      <span class="topline"><span class="ar">المدينة</span><span class="req">*</span></span>
-                      <span class="en">City</span>
-                    </label>
-                    <input id="city" type="text" autocomplete="address-level2" />
-                    <div class="error-text" id="cityError"></div>
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label class="label" for="shortAddress">
-                    <span class="topline"><span class="ar">العنوان الوطني المختصر</span><span class="req">*</span></span>
-                    <span class="en">Short National Address</span>
-                  </label>
-                  <input id="shortAddress" type="text" placeholder="TAAJ2825" autocomplete="off" />
-                  <div class="error-text" id="shortAddressError"></div>
-
-                  <div class="address-card">
-                    <div class="address-head">
-                      <div class="address-icon" aria-hidden="true">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M12 21s6-5.33 6-11a6 6 0 1 0-12 0c0 5.67 6 11 6 11z"></path>
-                          <circle cx="12" cy="10" r="2.6"></circle>
-                        </svg>
-                      </div>
-
-                      <div class="address-copy">
-                        <p class="ar">في حال كان المريض لا يعرف العنوان الوطني المختصر، فيمكنه اختيار أي طريقة من الطرق التالية للحصول عليه.</p>
-                        <p class="en">If the patient does not know the Short National Address, they may use any of the following methods to find it.</p>
-                      </div>
-                    </div>
-
-                    <div class="method-grid">
-                      <div class="method-card">
-                        <div class="method-title">
-                          <span class="ar">الطريقة الأولى: عبر توكلنا</span>
-                          <span class="en">Method 1: Through Tawakkalna</span>
-                        </div>
-
-                        <div class="steps-flow ar-flow">
-                          <span class="step-chip">توكلنا</span>
-                          <span class="step-arrow">←</span>
-                          <span class="step-chip">معلوماتي</span>
-                          <span class="step-arrow">←</span>
-                          <span class="step-chip">العنوان الوطني</span>
-                          <span class="step-arrow">←</span>
-                          <span class="step-chip">المزيد</span>
-                          <span class="step-arrow">←</span>
-                          <span class="step-chip strong">العنوان المختصر</span>
-                        </div>
-
-                        <div class="steps-flow en-flow" dir="ltr">
-                          <span class="step-chip">Tawakkalna</span>
-                          <span class="step-arrow">→</span>
-                          <span class="step-chip">Personal</span>
-                          <span class="step-arrow">→</span>
-                          <span class="step-chip">National Address</span>
-                          <span class="step-arrow">→</span>
-                          <span class="step-chip">See More</span>
-                          <span class="step-arrow">→</span>
-                          <span class="step-chip strong">Short Address</span>
-                        </div>
-                      </div>
-
-                      <div class="method-card">
-                        <div class="method-title">
-                          <span class="ar">الطريقة الثانية أو الثالثة</span>
-                          <span class="en">Method 2 or 3</span>
-                        </div>
-
-                        <div class="method-actions">
-                          <a class="link-btn" href="https://maps.address.gov.sa/?lng=46.6704&lat=24.6976&zoom=4&style=streets" target="_blank" rel="noopener noreferrer">
-                            <span>فتح رابط العنوان الوطني</span>
-                            <span>/</span>
-                            <span>Open National Address Link</span>
-                          </a>
-
-                          <a class="link-btn whatsapp-btn" href="https://wa.me/966112898888" target="_blank" rel="noopener noreferrer">
-                            <span>التواصل عبر واتساب</span>
-                            <span>/</span>
-                            <span>Open WhatsApp Chat</span>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label class="label">
-                    <span class="topline"><span class="ar">العيادة</span><span class="req">*</span></span>
-                    <span class="en">Clinic</span>
-                  </label>
-                  <div class="clinic-box">
-                    <div class="clinic-grid">
-                      <label class="check"><input type="checkbox" name="clinic" value="عظام / Orthopedics"><span><span class="ar">عظام</span><span class="en">Orthopedics</span></span></label>
-                      <label class="check"><input type="checkbox" name="clinic" value="عصبية / Neurology"><span><span class="ar">عصبية</span><span class="en">Neurology</span></span></label>
-                      <label class="check"><input type="checkbox" name="clinic" value="غدد / Endocrine"><span><span class="ar">غدد</span><span class="en">Endocrine</span></span></label>
-                      <label class="check"><input type="checkbox" name="clinic" value="باطنية / Internal Medicine"><span><span class="ar">باطنية</span><span class="en">Internal Medicine</span></span></label>
-                      <label class="check"><input type="checkbox" name="clinic" value="عيون / Ophthalmology"><span><span class="ar">عيون</span><span class="en">Ophthalmology</span></span></label>
-                      <label class="check"><input type="checkbox" name="clinic" value="سيولة / Anticoagulation"><span><span class="ar">سيولة</span><span class="en">Anticoagulation</span></span></label>
-                      <label class="check"><input type="checkbox" name="clinic" value="سكر / Diabetes"><span><span class="ar">سكر</span><span class="en">Diabetes</span></span></label>
-                      <label class="check"><input type="checkbox" name="clinic" value="قلب / Cardiology"><span><span class="ar">قلب</span><span class="en">Cardiology</span></span></label>
-                      <label class="check"><input type="checkbox" name="clinic" value="جلدية / Dermatology"><span><span class="ar">جلدية</span><span class="en">Dermatology</span></span></label>
-                      <label class="check"><input type="checkbox" name="clinic" value="جهاز هضمي / Gastroenterology"><span><span class="ar">جهاز هضمي</span><span class="en">Gastroenterology</span></span></label>
-                      <label class="check"><input type="checkbox" name="clinic" value="صدرية / Pulmonology"><span><span class="ar">صدرية</span><span class="en">Pulmonology</span></span></label>
-                      <label class="check"><input type="checkbox" name="clinic" value="مسالك بولية / Urology"><span><span class="ar">مسالك بولية</span><span class="en">Urology</span></span></label>
-                      <label class="check"><input type="checkbox" name="clinic" value="طب نفسي / Psychiatry"><span><span class="ar">طب نفسي</span><span class="en">Psychiatry</span></span></label>
-                      <label class="check"><input type="checkbox" name="clinic" value="روماتيزم / Rheumatology"><span><span class="ar">روماتيزم</span><span class="en">Rheumatology</span></span></label>
-                      <label class="check"><input type="checkbox" name="clinic" value="كلى / Nephrology"><span><span class="ar">كلى</span><span class="en">Nephrology</span></span></label>
-                      <label class="check"><input type="checkbox" name="clinic" value="أخرى / Other"><span><span class="ar">أخرى</span><span class="en">Other</span></span></label>
-                    </div>
-                  </div>
-                  <div class="error-text" id="clinicError"></div>
-                </div>
-              </div>
-
-              <div id="feedbackSection" class="hidden">
-                <div class="section-head">
-                  <h3>قسم الاقتراحات والشكاوى / Suggestions &amp; Complaints Section</h3>
-                  <p>يرجى كتابة الملاحظة بوضوح للمساعدة على تحسين الخدمة.</p>
-                  <p>Please write the feedback clearly to help improve the service.</p>
-                </div>
-
-                <div class="field">
-                  <label class="label" for="feedbackText">
-                    <span class="topline"><span class="ar">ما هو اقتراحك / ملاحظتك؟</span><span class="req">*</span></span>
-                    <span class="en">What is your suggestion or feedback?</span>
-                  </label>
-                  <textarea id="feedbackText"></textarea>
-                  <div class="error-text" id="feedbackTextError"></div>
-                </div>
-
-                <div class="grid two">
-                  <div class="field">
-                    <label class="label" for="feedbackMrn">
-                      <span class="topline"><span class="ar">رقم الملف</span><span class="req">*</span></span>
-                      <span class="en">Medical Record Number</span>
-                    </label>
-                    <input id="feedbackMrn" type="tel" inputmode="numeric" autocomplete="off" />
-                    <div class="error-text" id="feedbackMrnError"></div>
-                  </div>
-
-                  <div class="field">
-                    <label class="label" for="feedbackPhone">
-                      <span class="topline"><span class="ar">رقم الهاتف</span><span class="req">*</span></span>
-                      <span class="en">Phone Number</span>
-                    </label>
-                    <input id="feedbackPhone" type="tel" inputmode="numeric" autocomplete="tel" />
-                    <div class="error-text" id="feedbackPhoneError"></div>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section class="panel" data-panel="3">
-              <div class="section-head">
-                <h3>مراجعة الطلب / Review Request</h3>
-                <p>يرجى مراجعة البيانات التالية قبل الإرسال النهائي. ويمكن العودة للتعديل في أي وقت.</p>
-                <p>Please review the information below before final submission. You may go back to edit at any time.</p>
-              </div>
-              <div id="reviewBox" class="review"></div>
-              <div id="submitError" class="submit-error"></div>
-            </section>
-
-            <div class="actions">
-              <button type="button" class="btn btn-secondary hidden" id="backBtn">السابق / Back</button>
-              <button type="button" class="btn btn-primary" id="nextBtn">التالي / Next</button>
-              <button type="button" class="btn btn-primary hidden" id="submitBtn">إرسال الطلب / Submit Request</button>
-            </div>
-          </form>
-
-          <section id="successState" class="success">
-            <div class="success-card">
-              <div class="success-icon">✓</div>
-              <h3>تم الإرسال بنجاح / Submitted Successfully</h3>
-              <p id="successAr"></p>
-              <p id="successEn"></p>
-              <div class="actions" style="justify-content:center; margin-top:20px;">
-                <button type="button" class="btn btn-primary" id="newRequestBtn">طلب جديد / New Request</button>
-              </div>
-            </div>
-          </section>
-        </section>
-
-        <div class="footer-credit">
-          تم تصميم هذه الواجهة بواسطة وعد الوقداني | email: waadalwagdani@gmail.com
-        </div>
+    <section id="unavailableBox" class="unavailable-box" aria-live="polite">
+      <div class="unavailable-card">
+        <div class="unavailable-icon">!</div>
+        <h3 id="closedTitle">عذرًا، لا يمكن إتمام الخدمة حاليًا / Service is currently unavailable</h3>
+        <p id="closedAr">هذه الخدمة متاحة من الأحد إلى الخميس، من الساعة 8:00 صباحًا حتى 12:00 ظهرًا فقط.</p>
+        <p id="closedEn">This service is available Sunday through Thursday, from 8:00 AM to 12:00 PM only.</p>
       </div>
     </section>
+
+    <section id="formShell">
+      <div class="stepper" aria-label="Progress steps">
+        <div class="step active" data-step="1"><div class="step-circle">1</div><div class="step-label"><span class="ar">الخدمة</span><span class="en">Service</span></div></div>
+        <div class="step" data-step="2"><div class="step-circle">2</div><div class="step-label"><span class="ar">البيانات</span><span class="en">Details</span></div></div>
+        <div class="step" data-step="3"><div class="step-circle">3</div><div class="step-label"><span class="ar">المراجعة والإرسال</span><span class="en">Review &amp; Submit</span></div></div>
+      </div>
+
+      <form id="patientForm" novalidate>
+        <input type="hidden" id="serviceType" value="" />
+
+        <section class="panel active" data-panel="1">
+          <div class="section-head">
+            <h3>اختيار الخدمة / Select Service</h3>
+            <p>يرجى اختيار نوع الخدمة، ثم تعبئة البيانات المطلوبة، ومراجعتها قبل الإرسال النهائي.</p>
+            <p>Please select the service type, complete the required information, and review it before final submission.</p>
+          </div>
+
+          <div class="service-grid" role="radiogroup" aria-label="Service selection">
+            <button type="button" class="service-card" data-service="Medication Refill" data-service-ar="إعادة صرف دواء" aria-pressed="false">
+              <span class="service-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="4" y="3.5" width="16" height="17" rx="3"></rect>
+                  <path d="M12 7v10M7 12h10"></path>
+                </svg>
+              </span>
+              <span class="service-copy">
+                <strong>إعادة صرف دواء</strong>
+                <span>Medication Refill</span>
+              </span>
+            </button>
+
+            <button type="button" class="service-card" data-service="Suggestions & Complaints" data-service-ar="اقتراحات وشكاوى" aria-pressed="false">
+              <span class="service-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 10h10M7 14h7"></path>
+                  <path d="M5 4h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H11l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"></path>
+                </svg>
+              </span>
+              <span class="service-copy">
+                <strong>اقتراحات وشكاوى</strong>
+                <span>Suggestions &amp; Complaints</span>
+              </span>
+            </button>
+          </div>
+
+          <div class="error-text" id="serviceError"></div>
+        </section>
+
+        <section class="panel" data-panel="2">
+          <div id="refillSection" class="hidden">
+            <div class="section-head">
+              <h3>قسم إعادة صرف الدواء / Medication Refill Section</h3>
+              <p>الرجاء تعبئة البيانات كما هي في الملف الطبي لضمان سرعة المعالجة.</p>
+              <p>Please enter the details exactly as they appear in the medical record to support faster processing.</p>
+            </div>
+
+            <div class="grid two">
+              <div class="field">
+                <label class="label" for="patientName">
+                  <span class="topline"><span class="ar">اسم المريض</span><span class="req">*</span></span>
+                  <span class="en">Patient Name</span>
+                </label>
+                <input id="patientName" type="text" autocomplete="name" />
+                <div class="error-text" id="patientNameError"></div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="mrn">
+                  <span class="topline"><span class="ar">رقم الملف الطبي</span><span class="req">*</span></span>
+                  <span class="en">Medical Record Number</span>
+                </label>
+                <input id="mrn" type="tel" inputmode="numeric" autocomplete="off" />
+                <div class="error-text" id="mrnError"></div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="idIqama">
+                  <span class="topline"><span class="ar">رقم الهوية / الإقامة</span><span class="req">*</span></span>
+                  <span class="en">ID or Iqama Number</span>
+                </label>
+                <input id="idIqama" type="tel" inputmode="numeric" autocomplete="off" />
+                <div class="error-text" id="idIqamaError"></div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="mobile">
+                  <span class="topline"><span class="ar">رقم الجوال</span><span class="req">*</span></span>
+                  <span class="en">Mobile Number</span>
+                </label>
+                <input id="mobile" type="tel" inputmode="numeric" autocomplete="tel" />
+                <div class="error-text" id="mobileError"></div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="altMobile">
+                  <span class="topline"><span class="ar">رقم جوال بديل</span><span class="req">*</span></span>
+                  <span class="en">Alternative Mobile Number</span>
+                </label>
+                <input id="altMobile" type="tel" inputmode="numeric" autocomplete="tel" />
+                <div class="error-text" id="altMobileError"></div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="city">
+                  <span class="topline"><span class="ar">المدينة</span><span class="req">*</span></span>
+                  <span class="en">City</span>
+                </label>
+                <input id="city" type="text" autocomplete="address-level2" />
+                <div class="error-text" id="cityError"></div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="shortAddress">
+                <span class="topline"><span class="ar">العنوان الوطني المختصر</span><span class="req">*</span></span>
+                <span class="en">Short National Address</span>
+              </label>
+              <input id="shortAddress" type="text" placeholder="TAAJ2825" autocomplete="off" />
+              <div class="error-text" id="shortAddressError"></div>
+
+              <div class="address-card">
+                <div class="address-head">
+                  <div class="address-icon" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 21s6-5.33 6-11a6 6 0 1 0-12 0c0 5.67 6 11 6 11z"></path>
+                      <circle cx="12" cy="10" r="2.6"></circle>
+                    </svg>
+                  </div>
+
+                  <div class="address-copy">
+                    <p class="ar">في حال كان المريض لا يعرف العنوان الوطني المختصر، فيمكنه اختيار أي طريقة من الطرق التالية للحصول عليه.</p>
+                    <p class="en">If the patient does not know the Short National Address, they may use any of the following methods to find it.</p>
+                  </div>
+                </div>
+
+                <div class="method-grid">
+                  <div class="method-card">
+                    <div class="method-title">
+                      <span class="ar">الطريقة الأولى: عبر توكلنا</span>
+                      <span class="en">Method 1: Through Tawakkalna</span>
+                    </div>
+
+                    <div class="steps-flow ar-flow">
+                      <span class="step-chip">توكلنا</span>
+                      <span class="step-arrow">←</span>
+                      <span class="step-chip">معلوماتي</span>
+                      <span class="step-arrow">←</span>
+                      <span class="step-chip">العنوان الوطني</span>
+                      <span class="step-arrow">←</span>
+                      <span class="step-chip">المزيد</span>
+                      <span class="step-arrow">←</span>
+                      <span class="step-chip strong">العنوان المختصر</span>
+                    </div>
+
+                    <div class="steps-flow en-flow" dir="ltr">
+                      <span class="step-chip">Tawakkalna</span>
+                      <span class="step-arrow">→</span>
+                      <span class="step-chip">Personal</span>
+                      <span class="step-arrow">→</span>
+                      <span class="step-chip">National Address</span>
+                      <span class="step-arrow">→</span>
+                      <span class="step-chip">See More</span>
+                      <span class="step-arrow">→</span>
+                      <span class="step-chip strong">Short Address</span>
+                    </div>
+                  </div>
+
+                  <div class="method-card">
+                    <div class="method-title">
+                      <span class="ar">الطريقة الثانية أو الثالثة</span>
+                      <span class="en">Method 2 or 3</span>
+                    </div>
+
+                    <div class="method-actions">
+                      <a class="link-btn" href="https://maps.address.gov.sa/?lng=46.6704&lat=24.6976&zoom=4&style=streets" target="_blank" rel="noopener noreferrer">
+                        <span>فتح رابط العنوان الوطني</span>
+                        <span>/</span>
+                        <span>Open National Address Link</span>
+                      </a>
+
+                      <a class="link-btn whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer">
+                        <span>التواصل عبر واتساب</span>
+                        <span>/</span>
+                        <span>Open WhatsApp Chat</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">
+                <span class="topline"><span class="ar">العيادة</span><span class="req">*</span></span>
+                <span class="en">Clinic</span>
+              </label>
+              <div class="clinic-box">
+                <div class="clinic-grid">
+                  <label class="check"><input type="checkbox" name="clinic" value="عظام / Orthopedics"><span><span class="ar">عظام</span><span class="en">Orthopedics</span></span></label>
+                  <label class="check"><input type="checkbox" name="clinic" value="عصبية / Neurology"><span><span class="ar">عصبية</span><span class="en">Neurology</span></span></label>
+                  <label class="check"><input type="checkbox" name="clinic" value="غدد / Endocrine"><span><span class="ar">غدد</span><span class="en">Endocrine</span></span></label>
+                  <label class="check"><input type="checkbox" name="clinic" value="باطنية / Internal Medicine"><span><span class="ar">باطنية</span><span class="en">Internal Medicine</span></span></label>
+                  <label class="check"><input type="checkbox" name="clinic" value="عيون / Ophthalmology"><span><span class="ar">عيون</span><span class="en">Ophthalmology</span></span></label>
+                  <label class="check"><input type="checkbox" name="clinic" value="سيولة / Anticoagulation"><span><span class="ar">سيولة</span><span class="en">Anticoagulation</span></span></label>
+                  <label class="check"><input type="checkbox" name="clinic" value="سكر / Diabetes"><span><span class="ar">سكر</span><span class="en">Diabetes</span></span></label>
+                  <label class="check"><input type="checkbox" name="clinic" value="قلب / Cardiology"><span><span class="ar">قلب</span><span class="en">Cardiology</span></span></label>
+                  <label class="check"><input type="checkbox" name="clinic" value="جلدية / Dermatology"><span><span class="ar">جلدية</span><span class="en">Dermatology</span></span></label>
+                  <label class="check"><input type="checkbox" name="clinic" value="جهاز هضمي / Gastroenterology"><span><span class="ar">جهاز هضمي</span><span class="en">Gastroenterology</span></span></label>
+                  <label class="check"><input type="checkbox" name="clinic" value="صدرية / Pulmonology"><span><span class="ar">صدرية</span><span class="en">Pulmonology</span></span></label>
+                  <label class="check"><input type="checkbox" name="clinic" value="مسالك بولية / Urology"><span><span class="ar">مسالك بولية</span><span class="en">Urology</span></span></label>
+                  <label class="check"><input type="checkbox" name="clinic" value="طب نفسي / Psychiatry"><span><span class="ar">طب نفسي</span><span class="en">Psychiatry</span></span></label>
+                  <label class="check"><input type="checkbox" name="clinic" value="روماتيزم / Rheumatology"><span><span class="ar">روماتيزم</span><span class="en">Rheumatology</span></span></label>
+                  <label class="check"><input type="checkbox" name="clinic" value="كلى / Nephrology"><span><span class="ar">كلى</span><span class="en">Nephrology</span></span></label>
+                  <label class="check"><input type="checkbox" name="clinic" value="أخرى / Other"><span><span class="ar">أخرى</span><span class="en">Other</span></span></label>
+                </div>
+              </div>
+              <div class="error-text" id="clinicError"></div>
+            </div>
+          </div>
+
+          <div id="feedbackSection" class="hidden">
+            <div class="section-head">
+              <h3>قسم الاقتراحات والشكاوى / Suggestions &amp; Complaints Section</h3>
+              <p>يرجى كتابة الملاحظة بوضوح للمساعدة على تحسين الخدمة.</p>
+              <p>Please write the feedback clearly to help improve the service.</p>
+            </div>
+
+            <div class="field">
+              <label class="label" for="feedbackText">
+                <span class="topline"><span class="ar">ما هو اقتراحك / ملاحظتك؟</span><span class="req">*</span></span>
+                <span class="en">What is your suggestion or feedback?</span>
+              </label>
+              <textarea id="feedbackText"></textarea>
+              <div class="error-text" id="feedbackTextError"></div>
+            </div>
+
+            <div class="grid two">
+              <div class="field">
+                <label class="label" for="feedbackMrn">
+                  <span class="topline"><span class="ar">رقم الملف</span><span class="req">*</span></span>
+                  <span class="en">Medical Record Number</span>
+                </label>
+                <input id="feedbackMrn" type="tel" inputmode="numeric" autocomplete="off" />
+                <div class="error-text" id="feedbackMrnError"></div>
+              </div>
+
+              <div class="field">
+                <label class="label" for="feedbackPhone">
+                  <span class="topline"><span class="ar">رقم الهاتف</span><span class="req">*</span></span>
+                  <span class="en">Phone Number</span>
+                </label>
+                <input id="feedbackPhone" type="tel" inputmode="numeric" autocomplete="tel" />
+                <div class="error-text" id="feedbackPhoneError"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" data-panel="3">
+          <div class="section-head">
+            <h3>مراجعة الطلب / Review Request</h3>
+            <p>يرجى مراجعة البيانات التالية قبل الإرسال النهائي. ويمكن العودة للتعديل في أي وقت.</p>
+            <p>Please review the information below before final submission. You may go back to edit at any time.</p>
+          </div>
+          <div id="reviewBox" class="review"></div>
+          <div id="submitError" class="submit-error"></div>
+        </section>
+
+        <div class="actions">
+          <button type="button" class="btn btn-secondary hidden" id="backBtn">السابق / Back</button>
+          <button type="button" class="btn btn-primary" id="nextBtn">التالي / Next</button>
+          <button type="button" class="btn btn-primary hidden" id="submitBtn">إرسال الطلب / Submit Request</button>
+        </div>
+      </form>
+
+      <section id="successState" class="success">
+        <div class="success-card">
+          <div class="success-icon">✓</div>
+          <h3>تم الإرسال بنجاح / Submitted Successfully</h3>
+          <p id="successAr"></p>
+          <p id="successEn"></p>
+          <div class="actions" style="justify-content:center; margin-top:20px;">
+            <button type="button" class="btn btn-primary" id="newRequestBtn">طلب جديد / New Request</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <div class="footer-credit">
+      تم تصميم هذه الواجهة بواسطة وعد الوقداني | email: waadalwagdani@gmail.com
+    </div>
+  </div>
+</section>
+
   </main>
 
   <script>
+
     const state = {
       step: 1,
       service: '',
@@ -1145,7 +1152,32 @@
         </div>
       `).join('');
     }
-    
+
+    function collectPayload() {
+      return {
+        serviceType: `${state.serviceAr} / ${state.service}`,
+        patientName: state.service === 'Medication Refill' ? fields.patientName.value.trim() : '',
+        medicalRecordNumber: state.service === 'Medication Refill' ? fields.mrn.value : fields.feedbackMrn.value,
+        idIqamaNumber: state.service === 'Medication Refill' ? fields.idIqama.value : '',
+        mobileNumber: state.service === 'Medication Refill' ? fields.mobile.value : '',
+        alternativeMobileNumber: state.service === 'Medication Refill' ? fields.altMobile.value : '',
+        city: state.service === 'Medication Refill' ? fields.city.value.trim() : '',
+        shortNationalAddress: state.service === 'Medication Refill' ? fields.shortAddress.value : '',
+        clinic: state.service === 'Medication Refill' ? getClinicValue() : '',
+        suggestionFeedback: state.service === 'Suggestions & Complaints' ? fields.feedbackText.value.trim() : '',
+        phoneNumber: state.service === 'Suggestions & Complaints' ? fields.feedbackPhone.value : ''
+      };
+    }
+
+   async function submitToAppsScript(payload) {
+  // Demo only — no data is sent or stored
+  await new Promise(resolve => setTimeout(resolve, 800));
+
+  return {
+    success: true
+  };
+}
+
     function showSuccess() {
       form.classList.add('hidden');
       document.querySelector('.stepper').classList.add('hidden');
@@ -1278,33 +1310,10 @@
       );
     }
 
-   function loadSettings() {
-  const demoSettings = {
-    mode: 'OPEN',
-    workingDays: 'Sun,Mon,Tue,Wed,Thu',
-    startTime: '08:00',
-    endTime: '12:00',
-    closedMessageAr: 'هذه الخدمة غير متاحة حاليًا.',
-    closedMessageEn: 'This service is currently unavailable.'
-  };
-
-  state.settings = demoSettings;
-  applyHoursUI(demoSettings);
-
-  // Demo is always available for testing
+    function loadSettings() {
   formShell.classList.remove('hidden');
   unavailableBox.classList.remove('active');
 }
-        state.settings = data.settings;
-        applyHoursUI(data.settings);
-
-        const open = isServiceOpen(data.settings);
-        formShell.classList.toggle('hidden', !open);
-        unavailableBox.classList.toggle('active', !open);
-      } catch (e) {
-        formShell.classList.remove('hidden');
-        unavailableBox.classList.remove('active');
-      }
     }
 
     nextBtn.addEventListener('click', () => {
@@ -1327,30 +1336,37 @@
     });
 
     submitBtn.addEventListener('click', async () => {
-  if (!validateStep2()) {
-    setStep(2);
-    return;
-  }
+      if (!validateStep2()) {
+        setStep(2);
+        return;
+      }
 
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'جاري الإرسال / Sending';
-  submitError.classList.remove('active');
-  submitError.textContent = '';
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'جاري الإرسال / Sending';
+      submitError.classList.remove('active');
+      submitError.textContent = '';
 
-  // Demo simulation only — no data is sent or stored
-  await new Promise(resolve => setTimeout(resolve, 800));
-
-  showSuccess();
-
-  submitBtn.disabled = false;
-  submitBtn.textContent = 'إرسال الطلب / Submit Request';
-});
+      try {
+        await submitToAppsScript(collectPayload());
+        showSuccess();
+      } catch (error) {
+        submitError.textContent =
+          error.message ||
+          'تعذر الإرسال حاليًا. يرجى المحاولة مرة أخرى / Unable to submit right now. Please try again.';
+        submitError.classList.add('active');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'إرسال الطلب / Submit Request';
+      }
+    });
 
     document.getElementById('newRequestBtn').addEventListener('click', resetForm);
 
     setStep(1);
     toggleServiceSections();
     loadSettings();
+    setInterval(loadSettings, 60000);
   </script>
+
 </body>
 </html>
