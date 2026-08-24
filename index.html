@@ -580,8 +580,8 @@ textarea{min-height:146px;resize:vertical}
       <div class="unavailable-card">
         <div class="unavailable-icon">!</div>
         <h3 id="closedTitle">عذرًا، لا يمكن إتمام الخدمة حاليًا / Service is currently unavailable</h3>
-        <p id="closedAr">هذه الخدمة متاحة من الأحد إلى الخميس، من الساعة 8:00 صباحًا حتى 12:00 ظهرًا فقط.</p>
-        <p id="closedEn">This service is available Sunday through Thursday, from 8:00 AM to 12:00 PM only.</p>
+        <p id="closedAr">هذه نسخة تجريبية متاحة للعرض في أي وقت.</p>
+        <p id="closedEn">This demo version is available for viewing at any time.</p>
       </div>
     </section>
 
@@ -1311,9 +1311,9 @@ textarea{min-height:146px;resize:vertical}
     }
 
     function loadSettings() {
-  formShell.classList.remove('hidden');
-  unavailableBox.classList.remove('active');
-}
+      // Demo is always available. No date/time restrictions.
+      formShell.classList.remove('hidden');
+      unavailableBox.classList.remove('active');
     }
 
     nextBtn.addEventListener('click', () => {
@@ -1365,7 +1365,6 @@ textarea{min-height:146px;resize:vertical}
     setStep(1);
     toggleServiceSections();
     loadSettings();
-    setInterval(loadSettings, 60000);
   </script>
 
 </body>
