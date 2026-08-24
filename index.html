@@ -876,8 +876,6 @@
   </main>
 
   <script>
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxxjUJ0hac99GqqnqJjRogSNMNUPMd5nt4RbRSoCyGNfBoBTvEJ1SqwV03WvUHqEcq_/exec';
-
     const state = {
       step: 1,
       service: '',
@@ -1147,51 +1145,7 @@
         </div>
       `).join('');
     }
-
-    function collectPayload() {
-      return {
-        serviceType: `${state.serviceAr} / ${state.service}`,
-        patientName: state.service === 'Medication Refill' ? fields.patientName.value.trim() : '',
-        medicalRecordNumber: state.service === 'Medication Refill' ? fields.mrn.value : fields.feedbackMrn.value,
-        idIqamaNumber: state.service === 'Medication Refill' ? fields.idIqama.value : '',
-        mobileNumber: state.service === 'Medication Refill' ? fields.mobile.value : '',
-        alternativeMobileNumber: state.service === 'Medication Refill' ? fields.altMobile.value : '',
-        city: state.service === 'Medication Refill' ? fields.city.value.trim() : '',
-        shortNationalAddress: state.service === 'Medication Refill' ? fields.shortAddress.value : '',
-        clinic: state.service === 'Medication Refill' ? getClinicValue() : '',
-        suggestionFeedback: state.service === 'Suggestions & Complaints' ? fields.feedbackText.value.trim() : '',
-        phoneNumber: state.service === 'Suggestions & Complaints' ? fields.feedbackPhone.value : ''
-      };
-    }
-
-    async function submitToAppsScript(payload) {
-      const formData = new URLSearchParams();
-
-      Object.entries(payload).forEach(([key, value]) => {
-        formData.append(key, value || '');
-      });
-
-      const response = await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-        },
-        body: formData.toString()
-      });
-
-      const data = await response.json();
-
-      if (!data.success) {
-        throw new Error(
-          data.message_ar ||
-          data.error ||
-          'تعذر الإرسال حاليًا. يرجى المحاولة مرة أخرى / Unable to submit right now. Please try again.'
-        );
-      }
-
-      return data;
-    }
-
+    
     function showSuccess() {
       form.classList.add('hidden');
       document.querySelector('.stepper').classList.add('hidden');
@@ -1324,16 +1278,23 @@
       );
     }
 
-    async function loadSettings() {
-      try {
-        const url = `${APPS_SCRIPT_URL}?action=settings&_=${Date.now()}`;
-        const res = await fetch(url, { method: 'GET' });
-        const data = await res.json();
+   function loadSettings() {
+  const demoSettings = {
+    mode: 'OPEN',
+    workingDays: 'Sun,Mon,Tue,Wed,Thu',
+    startTime: '08:00',
+    endTime: '12:00',
+    closedMessageAr: 'هذه الخدمة غير متاحة حاليًا.',
+    closedMessageEn: 'This service is currently unavailable.'
+  };
 
-        if (!data || !data.success || !data.settings) {
-          throw new Error('Settings load failed');
-        }
+  state.settings = demoSettings;
+  applyHoursUI(demoSettings);
 
+  // Demo is always available for testing
+  formShell.classList.remove('hidden');
+  unavailableBox.classList.remove('active');
+}
         state.settings = data.settings;
         applyHoursUI(data.settings);
 
@@ -1366,36 +1327,30 @@
     });
 
     submitBtn.addEventListener('click', async () => {
-      if (!validateStep2()) {
-        setStep(2);
-        return;
-      }
+  if (!validateStep2()) {
+    setStep(2);
+    return;
+  }
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'جاري الإرسال / Sending';
-      submitError.classList.remove('active');
-      submitError.textContent = '';
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'جاري الإرسال / Sending';
+  submitError.classList.remove('active');
+  submitError.textContent = '';
 
-      try {
-        await submitToAppsScript(collectPayload());
-        showSuccess();
-      } catch (error) {
-        submitError.textContent =
-          error.message ||
-          'تعذر الإرسال حاليًا. يرجى المحاولة مرة أخرى / Unable to submit right now. Please try again.';
-        submitError.classList.add('active');
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'إرسال الطلب / Submit Request';
-      }
-    });
+  // Demo simulation only — no data is sent or stored
+  await new Promise(resolve => setTimeout(resolve, 800));
+
+  showSuccess();
+
+  submitBtn.disabled = false;
+  submitBtn.textContent = 'إرسال الطلب / Submit Request';
+});
 
     document.getElementById('newRequestBtn').addEventListener('click', resetForm);
 
     setStep(1);
     toggleServiceSections();
     loadSettings();
-    setInterval(loadSettings, 60000);
   </script>
 </body>
 </html>
