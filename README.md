@@ -1,37 +1,41 @@
-# Pharmacy Service Demo
+# Pharmacy Service Portal (Demo)
 
-A bilingual, responsive pharmacy service portal prototype built with
-HTML, CSS, and vanilla JavaScript.
+A bilingual (Arabic / English) pharmacy service portal prototype for medication refill requests and patient feedback, with client-side validation and a privacy-first approach to demo submissions.
 
-![Pharmacy Service Portal Demo](preview.png)
+## Why this exists
 
-## Live Demo
-[View Live Demo](https://waad-alwagdani.github.io/pharmacy-service-portal-demo/)
+Refill requests and patient feedback often go through slow, paper-based, or phone-only channels. This demo shows a lightweight, bilingual, self-service alternative that patients can use directly.
 
-## Key Features
+## Features
 
-- Multi-step form workflow
-- Arabic / English bilingual interface
-- RTL-friendly responsive design
-- Client-side input validation
-- Input sanitization
-- Dynamic review generation
-- Conditional service-specific forms
-- Interactive clinic selection
-- Simulated asynchronous submission
-- Form reset and success states
-- No user data is transmitted or stored
+- Medication refill request flow
+- Patient feedback submission
+- Client-side form validation
+- Privacy-first demo submission (no real patient data is stored/transmitted)
+- Bilingual interface (Arabic / English) with RTL-aware layout
 
-## Tech Stack
+## Tech stack
 
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- DOM API
-- CSS Grid & Flexbox
+- HTML <!-- add CSS / JavaScript / frameworks here if used -->
 
-## Demo Notice
+## Getting started
 
-This is a demonstration prototype only.
-It is not affiliated with any healthcare provider and does not transmit
-or store user-entered information.
+```bash
+git clone https://github.com/waad-alwagdani/pharmacy-service-portal-demo.git
+cd pharmacy-service-portal-demo
+# open index.html in your browser
+```
+
+## Screenshots
+
+![Dashboard preview](preview.png)
+
+## Status
+
+Prototype / demo — not connected to a real pharmacy system. Feedback welcome.
+
+## License
+
+© Waad Alwagdani. All rights reserved.
+
+This project is shared publicly for portfolio and demonstration purposes only. No permission is granted to copy, modify, distribute, or reuse this code without prior written consent.
